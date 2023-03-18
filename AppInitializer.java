@@ -130,6 +130,20 @@ public class AppInitializer {
                     loadHomePage(scanner);
                 }
                 break;
+                case "8":
+                if(numStudents != 0){
+                    printRank(scanner);
+                }else{
+                    System.out.println("No Students are Available in the System.");
+                    try {
+                        Thread.sleep(3000); // wait for 3 seconds
+                    } catch (InterruptedException e) {
+               
+                    }
+                    clearConsole();
+                    loadHomePage(scanner);
+                }
+                break;
 
                 
         }
@@ -856,6 +870,107 @@ switch (rank) {
             
         }while (response == 'Y' || response == 'y');
 }
+
+
+	public static void printRank(Scanner scanner) {
+		String text = "PRINT STUDENTS' RANKS";
+        int width = 100; 
+        int spaces = (width - text.length()) / 2;
+        String centeredText = String.format("%" + spaces + "s%s%" + spaces + "s", "", text, "");
+        String border = String.format("%" + width + "s", "").replaceAll(" ", "=");
+        System.out.println(border);
+        System.out.println(centeredText);
+        System.out.println(border);
+        System.out.println();
+        
+        char response = 'Y';
+
+            System.out.print("Enter Student ID:");
+			String studentId = scanner.next();
+        
+       int studentIndex = -1;
+        for (int i = 0; i < studentIds.length; i++) {
+            if (studentIds[i] != null && studentIds[i].equals(studentId)) {
+                studentIndex = i;
+                break;
+            }
+        }
+
+            if (studentIndex == -1) {
+                
+            }else {
+            if (studentPFMarks[studentIndex] != 0) {
+                double studentPFMark = studentPFMarks[studentIndex];
+                double studentDBMark = studentDBMarks[studentIndex];
+                double totalMark = studentPFMark + studentDBMark;
+                double averageMark = totalMark/2;
+
+                int rank = 1;
+for (int i = 0; i < MAX_STUDENTS; i++) {
+    if (i == studentIndex) {
+        continue; // Skip current student
+    }
+    double otherStudentPFMark = studentPFMarks[i];
+    double otherStudentDBMark = studentDBMarks[i];
+    double otherTotalMark = otherStudentPFMark + otherStudentDBMark;
+    double otherAverageMark = otherTotalMark/2;
+    if (otherAverageMark > averageMark) {
+        rank++;
+    }
+}
+
+String rankText;
+switch (rank) {
+    case 1:
+        rankText = " (First)";
+        break;
+    case 2:
+        rankText = " (Second)";
+        break;
+    case 3:
+        rankText = " (Third)";
+        break;
+    default:
+        rankText = " (Last)";
+        break;
+}
+				
+				System.out.format("%-35s %1s %15s", "+---------------------------------", "+", "------------+\n"); 
+				System.out.format("%-35s %1s %15s", "|Programming Fundamentals Marks", "|", studentPFMark+"|\n");
+				System.out.format("%-35s %1s %15s", "|Database Management System Marks", "|", studentDBMark+"|\n");
+				System.out.format("%-35s %1s %15s", "|Total Marks", "|", totalMark+" |\n");
+				System.out.format("%-35s %1s %15s", "|Avg. Marks", "|", averageMark+"|\n");
+				System.out.format("%-35s %1s %15s", "|Rank", "|", rank + rankText+" |\n");
+                System.out.format("%-35s %1s %15s", "+---------------------------------", "+", "------------+\n");
+				
+                
+            } else {
+                System.out.println("\nMarks yet to be added");
+            }
+            
+            do {
+                System.out.print("\nDo you want to search another student details? (Y/N): ");
+                response = scanner.next().charAt(0);
+                switch (response) {
+                    case 'Y':
+                    case 'y':
+                        clearConsole();
+                        printStudent(scanner);
+                        break;
+                    case 'N':
+                    case 'n':
+                        clearConsole();
+                        loadHomePage(scanner);
+                        break;
+                    default:
+                        System.out.println("Invalid input. Please enter Y or N.");
+                }
+            } while (response != 'Y' && response != 'y' && response != 'N' && response != 'n');
+        }
+            
+  
+        
+    }
 
 }
 
