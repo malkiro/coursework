@@ -11,6 +11,7 @@ public class AppInitializer {
     static int numStudents = 0; // Number of students currently stored
 
     public static void main(String[] args) {
+        clearConsole();
         loadHomePage(scanner);
     }
 
@@ -132,10 +133,30 @@ public class AppInitializer {
                 break;
             default:
                 System.out.println("Wrong Input!");
+                 char response = 'Y';
+                do {
+            System.out.print("\nDo you want to go back to main menu? (Y/N): ");
+            response = scanner.next().charAt(0);
+            switch (response) {
+                case 'Y':
+                case 'y':
+                    clearConsole();
+                    loadHomePage(scanner);
+                    break;
+                case 'N':
+                case 'n':
+                    System.out.println("Exiting program...");
+                    break;
+                default:
+                    System.out.println();
+                    System.out.println("Invalid input. Please enter Y or N.");
+            }
+        } while (response != 'Y' && response != 'y' && response != 'N' && response != 'n');
                 break;
         }
     }
 
+    //Option 01
     public static void addNewStudent(Scanner scanner) {
         String text = "ADD NEW STUDENT";
         int width = 100;
@@ -164,7 +185,9 @@ public class AppInitializer {
 
             if (exists) {
                 // If the student ID already exists, prompt the user to enter a new ID
+                System.out.print("Enter Student ID : ");
                 System.out.println("Student ID already exists. Please enter a new ID.");
+                System.out.println();
                 continue;
             }
 
@@ -196,12 +219,16 @@ public class AppInitializer {
                         loadHomePage(scanner);
                         break;
                     default:
+                        System.out.println();
                         System.out.println("Invalid input. Please enter Y or N.");
                 }
             } while (response != 'Y' && response != 'y' && response != 'N' && response != 'n');
         } while (response == 'Y' || response == 'y');
     }
 
+
+
+    //Option 02
     public static void addNewStudentWithMarks(Scanner scanner) {
         String text = "ADD NEW STUDENT WITH MARKS";
         int width = 100;
@@ -231,6 +258,7 @@ public class AppInitializer {
             if (exists) {
                 // If the student ID already exists, prompt the user to enter a new ID
                 System.out.println("Student ID already exists. Please enter a new ID.");
+                System.out.println();
                 continue;
             }
 
@@ -244,6 +272,8 @@ public class AppInitializer {
             double studentPFMark = scanner.nextDouble();
             while (studentPFMark < 0 || studentPFMark > 100) {
                 System.out.println("Invalid marks! Please enter a mark between 0 and 100.");
+                System.out.println();
+                System.out.print("Programming Fundamentals Marks : ");
                 studentPFMark = scanner.nextDouble();
             }
 
@@ -252,6 +282,8 @@ public class AppInitializer {
             double studentDBMark = scanner.nextDouble();
             while (studentDBMark < 0 || studentDBMark > 100) {
                 System.out.println("Invalid marks! Please enter a mark between 0 and 100.");
+                System.out.println();
+                System.out.print("Database Management System Marks : ");
                 studentDBMark = scanner.nextDouble();
             }
 
@@ -281,12 +313,16 @@ public class AppInitializer {
                         loadHomePage(scanner);
                         break;
                     default:
+                        System.out.println();
                         System.out.println("Invalid input. Please enter Y or N.");
                 }
             } while (response != 'Y' && response != 'y' && response != 'N' && response != 'n');
         } while (response == 'Y' || response == 'y');
     }
 
+
+
+    //Option 03
     public static void addMarks(Scanner scanner) {
         String text = "ADD MARKS";
         int width = 100;
@@ -300,7 +336,7 @@ public class AppInitializer {
 
         char response = 'Y';
         do {
-            System.out.print("Enter Student ID:");
+            System.out.print("Enter Student ID : ");
             String studentId = scanner.next();
 
             int studentIndex = -1;
@@ -326,14 +362,16 @@ public class AppInitializer {
                             loadHomePage(scanner);
                             break;
                         default:
+                            System.out.println();
                             System.out.println("Invalid input. Please enter Y or N.");
                     }
+                    System.out.println();
                 } while (response != 'Y' && response != 'y' && response != 'N' && response != 'n');
 
             } else {
                 if (studentPFMarks[studentIndex] == 0.0 && studentDBMarks[studentIndex] == 0.0) {
                     String studentName = studentNames[studentIndex];
-                    System.out.println("Student name: " + studentName);
+                    System.out.println("Student Name : " + studentName);
                     System.out.println();
 
                     // Prompt the user to input programming fundamentals marks
@@ -341,6 +379,8 @@ public class AppInitializer {
                     double studentPFMark = scanner.nextDouble();
                     while (studentPFMark < 0 || studentPFMark > 100) {
                         System.out.println("Invalid marks! Please enter a mark between 0 and 100.");
+                        System.out.println();
+                        System.out.print("Programming Fundamentals Marks : ");
                         studentPFMark = scanner.nextDouble();
                     }
 
@@ -349,10 +389,12 @@ public class AppInitializer {
                     double studentDBMark = scanner.nextDouble();
                     while (studentDBMark < 0 || studentDBMark > 100) {
                         System.out.println("Invalid marks! Please enter a mark between 0 and 100.");
+                        System.out.println();
+                        System.out.print("Database Management System Marks : ");
                         studentDBMark = scanner.nextDouble();
                     }
 
-                    // Add the new student marks to the arrays
+                    // Add student marks to the arrays
                     studentPFMarks[studentIndex] = studentPFMark;
                     studentDBMarks[studentIndex] = studentDBMark;
 
@@ -375,10 +417,14 @@ public class AppInitializer {
                                 loadHomePage(scanner);
                                 break;
                             default:
+                                System.out.println();
                                 System.out.println("Invalid input. Please enter Y or N.");
                         }
                     } while (response != 'Y' && response != 'y' && response != 'N' && response != 'n');
                 } else {
+                    String studentName = studentNames[studentIndex];
+                    System.out.println("Student name: " + studentName);
+                    System.out.println();
                     System.out.println("This student's marks have been already added");
                     System.out.println("If you want to update the marks, please use [4] Update Marks option.");
                     System.out.println();
@@ -398,6 +444,7 @@ public class AppInitializer {
                                 loadHomePage(scanner);
                                 break;
                             default:
+                                System.out.println();
                                 System.out.println("Invalid input. Please enter Y or N.");
                         }
                     } while (response != 'Y' && response != 'y' && response != 'N' && response != 'n');
@@ -408,6 +455,9 @@ public class AppInitializer {
 
     }
 
+
+
+    //Option 04
     public static void updateStudents(Scanner scanner) {
         String text = "UPDATE STUDENT DETAILS";
         int width = 100;
@@ -421,7 +471,7 @@ public class AppInitializer {
 
         char response = 'Y';
         do {
-            System.out.print("Enter Student ID:");
+            System.out.print("Enter Student ID : ");
             String studentId = scanner.next();
 
             int studentIndex = -1;
@@ -447,12 +497,13 @@ public class AppInitializer {
                             loadHomePage(scanner);
                             break;
                         default:
+                            System.out.println();
                             System.out.println("Invalid input. Please enter Y or N.");
                     }
+                    System.out.println();
                 } while (response != 'Y' && response != 'y' && response != 'N' && response != 'n');
 
             } else {
-                if (studentPFMarks[studentIndex] == 0) {
                     String studentName = studentNames[studentIndex];
                     System.out.println("Student name: " + studentName);
                     System.out.println();
@@ -461,7 +512,7 @@ public class AppInitializer {
                     System.out.print("Enter The New Student Name : ");
                     String studentNameUpdated = scanner.next();
 
-                    // Add the updated student name to the arrays
+                    // Updated student name to the arrays
                     studentNames[studentIndex] = studentNameUpdated;
 
                     System.out.println();
@@ -473,7 +524,7 @@ public class AppInitializer {
                             case 'Y':
                             case 'y':
                                 clearConsole();
-                                addMarks(scanner);
+                                updateStudents(scanner);
                                 break;
                             case 'N':
                             case 'n':
@@ -481,34 +532,18 @@ public class AppInitializer {
                                 loadHomePage(scanner);
                                 break;
                             default:
+                                System.out.println();
                                 System.out.println("Invalid input. Please enter Y or N.");
                         }
                     } while (response != 'Y' && response != 'y' && response != 'N' && response != 'n');
-                } else {
-                    do {
-                        System.out.print("Do you want to add marks for another student? (Y/N): ");
-                        response = scanner.next().charAt(0);
-                        switch (response) {
-                            case 'Y':
-                            case 'y':
-                                clearConsole();
-                                addMarks(scanner);
-                                break;
-                            case 'N':
-                            case 'n':
-                                clearConsole();
-                                loadHomePage(scanner);
-                                break;
-                            default:
-                                System.out.println("Invalid input. Please enter Y or N.");
-                        }
-                    } while (response != 'Y' && response != 'y' && response != 'N' && response != 'n');
-                }
             }
 
         } while (response == 'Y' || response == 'y');
     }
 
+
+
+    //Option 05
     public static void updateMarks(Scanner scanner) {
         String text = "UPDATE MARKS";
         int width = 100;
@@ -522,7 +557,7 @@ public class AppInitializer {
 
         char response = 'Y';
         do {
-            System.out.print("Enter Student ID:");
+            System.out.print("Enter Student ID : ");
             String studentId = scanner.next();
 
             int studentIndex = -1;
@@ -548,15 +583,16 @@ public class AppInitializer {
                             loadHomePage(scanner);
                             break;
                         default:
+                            System.out.println();
                             System.out.println("Invalid input. Please enter Y or N.");
                     }
+                    System.out.println();
                 } while (response != 'Y' && response != 'y' && response != 'N' && response != 'n');
 
             } else {
-                if (studentPFMarks[studentIndex] != 0) {
-                    System.out.println("This student's marks have been already added");
-                    System.out.println("If you want to update the marks, please use [4] Update Marks option.");
+                if (studentPFMarks[studentIndex] == 0.0 && studentDBMarks[studentIndex] == 0.0) {
                     System.out.println();
+                    System.out.println("This student's marks yet to be added");
 
                     do {
                         System.out.print("Do you want to add marks for another student? (Y/N): ");
@@ -573,6 +609,7 @@ public class AppInitializer {
                                 loadHomePage(scanner);
                                 break;
                             default:
+                                System.out.println();
                                 System.out.println("Invalid input. Please enter Y or N.");
                         }
                     } while (response != 'Y' && response != 'y' && response != 'N' && response != 'n');
@@ -585,7 +622,8 @@ public class AppInitializer {
                     double studentDBMark = studentDBMarks[studentIndex];
                     System.out.println("Programming Fundamentals Marks : " + studentDBMark);
 
-                    // Prompt the user to input programming fundamentals marks
+                    // Prompt the user to input new programming fundamentals marks
+                    System.out.println();
                     System.out.print("Enter New Programming Fundamentals Marks : ");
                     studentPFMark = scanner.nextDouble();
                     while (studentPFMark < 0 || studentPFMark > 100) {
@@ -593,7 +631,8 @@ public class AppInitializer {
                         studentPFMark = scanner.nextDouble();
                     }
 
-                    // Prompt the user to input database management system marks
+                    // Prompt the user to input new database management system marks
+                    System.out.println();
                     System.out.print("Enter New Database Management System Marks : ");
                     studentDBMark = scanner.nextDouble();
                     while (studentDBMark < 0 || studentDBMark > 100) {
@@ -601,7 +640,7 @@ public class AppInitializer {
                         studentDBMark = scanner.nextDouble();
                     }
 
-                    // Add the new student marks to the arrays
+                    // Update student marks to the arrays
                     studentPFMarks[studentIndex] = studentPFMark;
                     studentDBMarks[studentIndex] = studentDBMark;
 
@@ -614,7 +653,7 @@ public class AppInitializer {
                             case 'Y':
                             case 'y':
                                 clearConsole();
-                                addMarks(scanner);
+                                updateMarks(scanner);
                                 break;
                             case 'N':
                             case 'n':
@@ -622,6 +661,7 @@ public class AppInitializer {
                                 loadHomePage(scanner);
                                 break;
                             default:
+                                System.out.println();
                                 System.out.println("Invalid input. Please enter Y or N.");
                         }
                     } while (response != 'Y' && response != 'y' && response != 'N' && response != 'n');
@@ -632,6 +672,9 @@ public class AppInitializer {
 
     }
 
+
+
+    //Option 06
     public static void deleteStudent(Scanner scanner) {
         String text = "DELETE STUDENT";
         int width = 100;
@@ -671,8 +714,10 @@ public class AppInitializer {
                             loadHomePage(scanner);
                             break;
                         default:
+                            System.out.println();
                             System.out.println("Invalid input. Please enter Y or N.");
                     }
+                   System.out.println();
                 } while (response != 'Y' && response != 'y' && response != 'N' && response != 'n');
 
             } else {
@@ -692,7 +737,7 @@ public class AppInitializer {
 
                 // decrement the number of students
                 numStudents--;
-
+				System.out.println("Student deleted successfully");
                 do {
                     System.out.print("Do you want to delete another student? (Y/N): ");
                     response = scanner.next().charAt(0);
@@ -708,6 +753,7 @@ public class AppInitializer {
                             loadHomePage(scanner);
                             break;
                         default:
+                            System.out.println();
                             System.out.println("Invalid input. Please enter Y or N.");
                     }
                 } while (response != 'Y' && response != 'y' && response != 'N' && response != 'n');
@@ -716,6 +762,9 @@ public class AppInitializer {
         } while (response == 'Y' || response == 'y');
     }
 
+
+
+    //Option 07
     public static void printStudent(Scanner scanner) {
         String text = "PRINT STUDENT DETAILS";
         int width = 100;
@@ -755,6 +804,7 @@ public class AppInitializer {
                             loadHomePage(scanner);
                             break;
                         default:
+                            System.out.println();
                             System.out.println("Invalid input. Please enter Y or N.");
                     }
                 } while (response != 'Y' && response != 'y' && response != 'N' && response != 'n');
@@ -797,7 +847,7 @@ public class AppInitializer {
                         default:
                             rankText = " (Last)";
                             break;
-                    } 
+                    }
 
                     System.out.format("%-35s%1s%15s", "+-----------------------------------", "+", "--------------+\n");
                     System.out.format("%-35s %1s %15s", "|Programming Fundamentals Marks", "|", studentPFMark + "|\n");
@@ -827,6 +877,7 @@ public class AppInitializer {
                             loadHomePage(scanner);
                             break;
                         default:
+                            System.out.println();
                             System.out.println("Invalid input. Please enter Y or N.");
                     }
                 } while (response != 'Y' && response != 'y' && response != 'N' && response != 'n');
@@ -835,6 +886,9 @@ public class AppInitializer {
         } while (response == 'Y' || response == 'y');
     }
 
+
+
+    //Option 08
     public static void printRank(Scanner scanner) {
         String text = "PRINT STUDENT'S RANKS";
         int width = 100;
@@ -935,12 +989,16 @@ public class AppInitializer {
                     System.out.println("Exiting program...");
                     break;
                 default:
+                    System.out.println();
                     System.out.println("Invalid input. Please enter Y or N.");
             }
         } while (response != 'Y' && response != 'y' && response != 'N' && response != 'n');
 
     }
 
+
+
+    //Option 09
     public static void printBestPFStudents(Scanner scanner) {
         String text = "BEST IN PROGRAMMING FUNDAMENTALS";
         int width = 100;
@@ -952,35 +1010,46 @@ public class AppInitializer {
         System.out.println(border);
         System.out.println();
 
+        // sort the students based on their DBMS marks in descending order
+        for (int i = 0; i < numStudents - 1; i++) {
+            int maxIndex = i;
+            for (int j = i + 1; j < numStudents; j++) {
+                if (studentPFMarks[j] > studentPFMarks[maxIndex]) {
+                    maxIndex = j;
+                }
+            }
+            if (studentPFMarks[i] != 0.0 && studentDBMarks[i] != 0.0) {
+			// swap studentDBMarks[i] and studentDBMarks[maxIndex]
+            double tempMarks = studentDBMarks[i];
+            studentDBMarks[i] = studentDBMarks[maxIndex];
+            studentDBMarks[maxIndex] = tempMarks;
+
+            // swap studentIds[i] and studentIds[maxIndex] to keep track of the student IDs
+            String tempId = studentIds[i];
+            studentIds[i] = studentIds[maxIndex];
+            studentIds[maxIndex] = tempId;
+
+            // swap studentNames[i] and studentNames[maxIndex] to keep the names in the same
+            // order as the IDs
+            String tempName = studentNames[i];
+            studentNames[i] = studentNames[maxIndex];
+            studentNames[maxIndex] = tempName;
+
+            // swap studentPFMarks[i] and studentPFMarks[maxIndex] to keep the PF marks in
+            // the same order as the IDs
+            double tempPFMarks = studentPFMarks[i];
+            studentPFMarks[i] = studentPFMarks[maxIndex];
+            studentPFMarks[maxIndex] = tempPFMarks;
+			}
+            
+        }
+
         // display students with their id, name, PF marks and DBMS marks
         System.out.format("%-8s%-15s%1s%12s%12s", "+--------", "+---------------", "+", "------------+",
                 "-----------+\n");
         System.out.format("%-8s %-15s %1s %12s %12s", "|ID", "|Name", "|", "PF Marks|", "DBMS Marks|\n");
         System.out.format("%-8s%-15s%1s%12s%12s", "+--------", "+---------------", "+", "------------+",
                 "-----------+\n");
-        // sort the array in descending order based on studentPFMarks
-        for (int i = 0; i < numStudents - 1; i++) {
-            for (int j = i + 1; j < numStudents; j++) {
-                if (studentPFMarks[j] > studentPFMarks[i]) {
-                    // swap the elements at i and j in all the arrays
-                    double tempMarks = studentPFMarks[i];
-                    studentPFMarks[i] = studentPFMarks[j];
-                    studentPFMarks[j] = tempMarks;
-
-                    String tempId = studentIds[i];
-                    studentIds[i] = studentIds[j];
-                    studentIds[j] = tempId;
-
-                    String tempName = studentNames[i];
-                    studentNames[i] = studentNames[j];
-                    studentNames[j] = tempName;
-
-                    double tempDBMarks = studentDBMarks[i];
-                    studentDBMarks[i] = studentDBMarks[j];
-                    studentDBMarks[j] = tempDBMarks;
-                }
-            }
-        }
 
         // display the sorted students
         for (int i = 0; i < numStudents; i++) {
@@ -1008,12 +1077,16 @@ public class AppInitializer {
                     System.out.println("Exiting program...");
                     break;
                 default:
+                    System.out.println();
                     System.out.println("Invalid input. Please enter Y or N.");
             }
         } while (response != 'Y' && response != 'y' && response != 'N' && response != 'n');
 
     }
 
+
+
+    //Option 10
     public static void printBestDBMSStudents(Scanner scanner) {
         String text = "BEST IN DATABASE MANAGEMENT SYSTEM";
         int width = 100;
@@ -1025,35 +1098,47 @@ public class AppInitializer {
         System.out.println(border);
         System.out.println();
 
+        // sort the students based on their DBMS marks in descending order
+        for (int i = 0; i < numStudents - 1; i++) {
+            int maxIndex = i;
+            for (int j = i + 1; j < numStudents; j++) {
+                if (studentDBMarks[j] > studentDBMarks[maxIndex]) {
+                    maxIndex = j;
+                }
+            }
+            
+             if (studentPFMarks[i] != 0.0 && studentDBMarks[i] != 0.0) {
+				// swap studentDBMarks[i] and studentDBMarks[maxIndex]
+            double tempMarks = studentDBMarks[i];
+            studentDBMarks[i] = studentDBMarks[maxIndex];
+            studentDBMarks[maxIndex] = tempMarks;
+
+            // swap studentIds[i] and studentIds[maxIndex] to keep track of the student IDs
+            String tempId = studentIds[i];
+            studentIds[i] = studentIds[maxIndex];
+            studentIds[maxIndex] = tempId;
+
+            // swap studentNames[i] and studentNames[maxIndex] to keep the names in the same
+            // order as the IDs
+            String tempName = studentNames[i];
+            studentNames[i] = studentNames[maxIndex];
+            studentNames[maxIndex] = tempName;
+
+            // swap studentPFMarks[i] and studentPFMarks[maxIndex] to keep the PF marks in
+            // the same order as the IDs
+            double tempPFMarks = studentPFMarks[i];
+            studentPFMarks[i] = studentPFMarks[maxIndex];
+            studentPFMarks[maxIndex] = tempPFMarks;
+			}
+           
+        }
+
         // display students with their id, name, PF marks and DBMS marks
         System.out.format("%-8s%-15s%1s%12s%12s", "+--------", "+---------------", "+", "------------+",
                 "-----------+\n");
         System.out.format("%-8s %-15s %1s %12s %12s", "|ID", "|Name", "|", "DBMS Marks|", "PF Marks|\n");
         System.out.format("%-8s%-15s%1s%12s%12s", "+--------", "+---------------", "+", "------------+",
                 "-----------+\n");
-        // sort the array in descending order based on studentDBMSMarks
-        for (int i = 0; i < numStudents - 1; i++) {
-            for (int j = i + 1; j < numStudents; j++) {
-                if (studentDBMarks[j] > studentDBMarks[i]) {
-                    // swap the elements at i and j in all the arrays
-                    double tempMarks = studentDBMarks[i];
-                    studentDBMarks[i] = studentDBMarks[j];
-                    studentDBMarks[j] = tempMarks;
-
-                    String tempId = studentIds[i];
-                    studentIds[i] = studentIds[j];
-                    studentIds[j] = tempId;
-
-                    String tempName = studentNames[i];
-                    studentNames[i] = studentNames[j];
-                    studentNames[j] = tempName;
-
-                    double tempPFMarks = studentPFMarks[i];
-                    studentPFMarks[i] = studentPFMarks[j];
-                    studentPFMarks[j] = tempPFMarks;
-                }
-            }
-        }
 
         // display the sorted students
         for (int i = 0; i < numStudents; i++) {
@@ -1081,6 +1166,7 @@ public class AppInitializer {
                     System.out.println("Exiting program...");
                     break;
                 default:
+                    System.out.println();
                     System.out.println("Invalid input. Please enter Y or N.");
             }
         } while (response != 'Y' && response != 'y' && response != 'N' && response != 'n');
